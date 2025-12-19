@@ -16,4 +16,25 @@ export class CouponService {
   getCoupons(): Observable<Coupon[]> {
     return this.http.get<Coupon[]>(this.apiUrl);
   }
+
+  // 1. Get Single (For Editing later)
+  getCouponById(id: number): Observable<Coupon> {
+    return this.http.get<Coupon>(`${this.apiUrl}/${id}`);
+  }
+
+  // 2. Create (POST)
+  createCoupon(coupon: any): Observable<any> {
+    // We send 'coupon' as the JSON Payload
+    return this.http.post(this.apiUrl, coupon);
+  }
+
+  // 3. Update (PUT)
+  updateCoupon(id: number, coupon: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, coupon);
+  }
+
+  // 4. Delete (DELETE)
+  deleteCoupon(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

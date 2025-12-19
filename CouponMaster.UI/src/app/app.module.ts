@@ -6,16 +6,20 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CouponListComponent } from './components/coupon-list/coupon-list.component';
+import { CouponFormComponent } from './components/coupon-form/coupon-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CouponListComponent
+    CouponListComponent,
+    CouponFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

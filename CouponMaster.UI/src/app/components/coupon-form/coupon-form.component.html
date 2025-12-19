@@ -1,0 +1,33 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Coupon' : 'Create New Coupon' }}</h2>
+
+  <form [formGroup]="couponForm" (ngSubmit)="onSubmit()">
+    
+    <div>
+      <label>Title:</label>
+      <input formControlName="title" type="text" placeholder="e.g. SUMMER25">
+      <small *ngIf="couponForm.get('title')?.invalid && couponForm.get('title')?.touched" style="color:red">
+        Title is required.
+      </small>
+    </div>
+
+    <div>
+      <label>Description:</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+
+    <div>
+      <label>Discount (%):</label>
+      <input formControlName="discountAmount" type="number">
+    </div>
+
+    <div>
+      <label>Expiry Date:</label>
+      <input formControlName="expiryDate" type="date">
+    </div>
+
+    <br>
+    <button type="submit" [disabled]="couponForm.invalid">Save</button>
+    <button type="button" routerLink="/">Cancel</button>
+  </form>
+</div>
