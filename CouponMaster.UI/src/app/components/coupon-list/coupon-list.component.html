@@ -1,0 +1,26 @@
+<div class="coupon-container">
+  <h2>Available Offers</h2>
+  
+  <table border="1" cellpadding="10">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Discount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let coupon of coupons">
+        <td>{{ coupon.title }}</td>
+        <td>{{ coupon.description }}</td>
+        <td>{{ coupon.discountAmount }}%</td>
+        <td>
+          <span [style.color]="coupon.isActive === true ? 'green' : 'red'">
+            {{ coupon.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
