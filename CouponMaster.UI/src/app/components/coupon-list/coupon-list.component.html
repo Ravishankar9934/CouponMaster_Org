@@ -1,6 +1,8 @@
+<button routerLink="/add" style="margin-bottom: 20px;">+ Create New Coupon</button>
+
 <div class="coupon-container">
   <h2>Available Offers</h2>
-  
+
   <table border="1" cellpadding="10">
     <thead>
       <tr>
@@ -8,6 +10,7 @@
         <th>Description</th>
         <th>Discount</th>
         <th>Status</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +22,10 @@
           <span [style.color]="coupon.isActive === true ? 'green' : 'red'">
             {{ coupon.isActive ? 'Active' : 'Inactive' }}
           </span>
+        </td>
+        <td>
+          <button [routerLink]="['/edit', coupon.id]">Edit</button>
+          <button (click)="deleteCoupon(coupon.id)" style="color: red; margin-left: 10px;">Delete</button>
         </td>
       </tr>
     </tbody>

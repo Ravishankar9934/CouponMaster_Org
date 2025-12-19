@@ -51,6 +51,7 @@ namespace CouponMaster.Business
                 Title = coupon.Title,
                 Description = coupon.Description,
                 DiscountAmount = coupon.DiscountAmount,
+                ExpiryDate = coupon.ExpiryDate,
                 // Example of simple logic: Convert boolean to readable string
                 Status = coupon.IsActive ? "Active" : "Inactive"
             };

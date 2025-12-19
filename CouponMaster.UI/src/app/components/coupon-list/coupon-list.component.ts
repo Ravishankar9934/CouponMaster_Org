@@ -8,7 +8,7 @@ import { CouponService } from 'src/app/services/coupon.service';
   styleUrls: ['./coupon-list.component.scss']
 })
 export class CouponListComponent implements OnInit {
-  
+
   coupons: Coupon[] = [];
 
   // Inject the Service
@@ -24,5 +24,14 @@ export class CouponListComponent implements OnInit {
         console.error('Error fetching coupons:', err);
       }
     });
+  }
+
+  deleteCoupon(id: number) {
+    if (confirm("Are you sure you want to delete this coupon?")) {
+      this.couponService.deleteCoupon(id).subscribe(() => {
+        // Refresh list after delete
+        this.coupons = this.coupons.filter(c => c.id !== id);
+      });
+    }
   }
 }
