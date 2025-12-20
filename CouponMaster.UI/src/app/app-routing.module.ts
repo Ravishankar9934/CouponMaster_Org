@@ -2,11 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CouponListComponent } from './components/coupon-list/coupon-list.component';
 import { CouponFormComponent } from './components/coupon-form/coupon-form.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './components/register/register.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
-  { path: '', component: CouponListComponent }, // Default home page
-  { path: 'add', component: CouponFormComponent },
-  { path: 'edit/:id', component: CouponFormComponent } // :id is a dynamic parameter
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }, // <--- NEW
+  // Protect these routes
+  { path: '', component: CouponListComponent, canActivate: [AuthGuard] },
+  { path: 'add', component: CouponFormComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'edit/:id', component: CouponFormComponent, canActivate: [AuthGuard, AdminGuard] },
+  
+  { path: '**', redirectTo: '' } // Wildcard: redirect unknown to home
 ];
 
 @NgModule({

@@ -9,11 +9,22 @@ import { CouponListComponent } from './components/coupon-list/coupon-list.compon
 import { CouponFormComponent } from './components/coupon-form/coupon-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './services/token.interceptor';
+import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { RegisterComponent } from './components/register/register.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     CouponListComponent,
-    CouponFormComponent
+    CouponFormComponent,
+    LoginComponent,
+    HeaderComponent,
+    FooterComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +32,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true // Essential! Allows multiple interceptors
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

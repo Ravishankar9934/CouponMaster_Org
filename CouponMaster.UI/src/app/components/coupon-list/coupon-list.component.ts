@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Coupon } from 'src/app/models/coupon.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CouponService } from 'src/app/services/coupon.service';
 
 @Component({
@@ -9,20 +10,18 @@ import { CouponService } from 'src/app/services/coupon.service';
 })
 export class CouponListComponent implements OnInit {
 
-  coupons: Coupon[] = [];
+ coupons: Coupon[] = [];
+  isAdmin = false; // <--- Track this
 
-  // Inject the Service
-  constructor(private couponService: CouponService) { }
+  constructor(private couponService: CouponService, private auth: AuthService) { }
 
   ngOnInit(): void {
+    // Check role immediately
+    this.isAdmin = this.auth.isAdmin();
+
     this.couponService.getCoupons().subscribe({
-      next: (data) => {
-        this.coupons = data;
-        console.log('Data received:', data); // For debugging
-      },
-      error: (err) => {
-        console.error('Error fetching coupons:', err);
-      }
+      next: (data) => this.coupons = data,
+      error: (err) => console.error(err)
     });
   }
 

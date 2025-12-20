@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using CouponMaster.Abstraction;
 using CouponMaster.Models;
 // removed Asp.Versioning usage to keep simple routes
-using Asp.Versioning.ApiExplorer;
+//using Asp.Versioning.ApiExplorer;
 using CouponMaster.Models.DTOs;
+
+using Microsoft.AspNetCore.Authorization; // Import this
 
 namespace CouponMaster.API.Controllers
 {
@@ -11,6 +13,7 @@ namespace CouponMaster.API.Controllers
     // [Route("api/[controller]")]
     // [ApiController]
 
+    [Authorize] // <--- THIS LOCKS THE ENTIRE CONTROLLER
     [ApiController]
     [Route("api/[controller]")]
     // The URL will now be: api/coupon
@@ -60,6 +63,8 @@ namespace CouponMaster.API.Controllers
             return Ok(couponDto);
         }
 
+
+        [Authorize(Roles = "Admin")]
         // POST: api/v1/coupon
         [HttpPost]
         public async Task<IActionResult> CreateCoupon([FromBody] CouponCreateDto couponDto)
@@ -95,7 +100,9 @@ namespace CouponMaster.API.Controllers
             return NoContent(); // 204 No Content is standard for Updates
         }
 
+        
         // DELETE: api/v1/coupon/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCoupon(int id)
         {

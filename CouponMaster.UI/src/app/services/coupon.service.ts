@@ -12,6 +12,10 @@ export class CouponService {
 
   constructor(private http: HttpClient) { }
 
+  login(username: string, password: string): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>('http://localhost:5074/api/auth/login', { username, password });
+  }
+
   // Returns an Observable (Stream of data)
   getCoupons(): Observable<Coupon[]> {
     return this.http.get<Coupon[]>(this.apiUrl);

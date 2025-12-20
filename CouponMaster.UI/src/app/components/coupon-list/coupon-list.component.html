@@ -1,8 +1,10 @@
-<button routerLink="/add" style="margin-bottom: 20px;">+ Create New Coupon</button>
-
 <div class="coupon-container">
   <h2>Available Offers</h2>
 
+  <button *ngIf="isAdmin" routerLink="/add" style="margin-bottom: 20px;">
+    + Create New Coupon
+  </button>
+  
   <table border="1" cellpadding="10">
     <thead>
       <tr>
@@ -10,7 +12,7 @@
         <th>Description</th>
         <th>Discount</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th *ngIf="isAdmin">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -19,11 +21,12 @@
         <td>{{ coupon.description }}</td>
         <td>{{ coupon.discountAmount }}%</td>
         <td>
-          <span [style.color]="coupon.isActive === true ? 'green' : 'red'">
+          <span [style.color]="coupon.isActive ? 'green' : 'red'">
             {{ coupon.isActive ? 'Active' : 'Inactive' }}
           </span>
         </td>
-        <td>
+        
+        <td *ngIf="isAdmin">
           <button [routerLink]="['/edit', coupon.id]">Edit</button>
           <button (click)="deleteCoupon(coupon.id)" style="color: red; margin-left: 10px;">Delete</button>
         </td>
